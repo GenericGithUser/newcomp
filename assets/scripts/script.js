@@ -8,6 +8,14 @@ const cardData = [
         goTo: "Go to Code (No Live Preview Available)"
     },
     {
+        title:"MRM-Transmission Database System", 
+        image: "./assets/images/previews/mrmGIF.gif",
+        langs: ["HTML", "CSS", "JS", "REACT", "SQL", "ALL"],
+        description:"The Final Project that is made for our Information Management Subject, it is a full-stack web application built on ReactJS and used NodeJS as a backend. It is used for transmitting notifications of transmissions to the head office of Maynilad. It can send, receive, modify, delete, resend transmission notifications, as well as its records.",
+        link: "https://tds-mock.vercel.app/",
+        goTo: "Go to Preview"
+    },
+    {
         title: "Image Gallery",
         image: "./assets/images/previews/imgGal.png",
         langs: ["HTML", "CSS", "JS", "ALL"],
@@ -146,7 +154,7 @@ function renderCards(langFliter = "ALL") {
             clone.querySelector('.cardTitle').textContent = data.title;
             clone.querySelector('.imageShow').href = data.image;
             clone.querySelector('.boxImage').src = data.image;
-            clone.querySelector('.langs').textContent = data.langs.join(" ");
+            clone.querySelector('.langs').textContent = data.langs.filter(item=> item !== "ALL").join(" ");
             clone.querySelector('.desc').textContent = data.description;
             clone.querySelector('.linker').href = data.link;
             clone.querySelector('.linker').textContent = data.goTo; 
@@ -163,12 +171,19 @@ renderCards();
 
 document.querySelectorAll('.sortBtn').forEach(btn =>{
     btn.addEventListener('click', ()=>{
-        renderCards(btn.dataset.lang);
-        document.querySelectorAll('.sortBtn').forEach(a =>{
-            a.classList.remove('selected'); 
-        });
 
-        btn.classList.add('selected');
+        if (btn.classList.contains('selected')) {
+            btn.classList.remove('selected');
+            renderCards("ALL");
+        }
+        else{
+            renderCards(btn.dataset.lang);
+            document.querySelectorAll('.sortBtn').forEach(a =>{
+                a.classList.remove('selected'); 
+            });
+
+            btn.classList.add('selected');
+        }
     });
 
     
